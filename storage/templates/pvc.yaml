@@ -11,4 +11,8 @@ spec:
   resources:
     requests:
       storage: {{ .Values.Capacity }}
+{{- if .Values.StorageClassName }}
+  storageClassName: {{ .Values.StorageClassName }}
+{{- else }}
   volumeName: {{ .Values.Volume.Name }}
+{{- end }}

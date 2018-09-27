@@ -6,6 +6,7 @@ labels:
 
 Capacity: 10Gi
 
+# StorageClassName: ssd
 Volume:
   Name: storage-volume
   AccessModes:
