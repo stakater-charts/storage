@@ -17,5 +17,6 @@ Volume:
 
 Claim:
   Name: storage-volume-claim
+  Annotations: {}
   AccessModes:
   - ReadWriteOnce

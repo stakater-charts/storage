@@ -5,6 +5,10 @@ metadata:
 {{ include "storage.labels.stakater" . | indent 4 }}
 {{ include "storage.labels.chart" . | indent 4 }}
   name: {{ .Values.Claim.Name }}
+{{- if .Values.Claim.Annotations }}
+  annotations:
+{{ toYaml .Values.Claim.Annotations | indent 4 }}
+{{- end }}
 spec:
   accessModes:
 {{ toYaml .Values.Claim.AccessModes | indent 4 }}
