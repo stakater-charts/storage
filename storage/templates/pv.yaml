@@ -1,0 +1,17 @@
+{{- if not .Values.StorageClassName }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.Volume.Name }}
+  labels:
+{{ include "storage.labels.chart" . | indent 4 }}
+{{ include "storage.labels.stakater" . | indent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.Capacity }}
+  accessModes:
+{{ toYaml .Values.Volume.AccessModes | indent 4 }}
+  nfs:
+    server: {{ .Values.Volume.NFS.Server }}
+    path: {{ .Values.Volume.NFS.Path }}
+{{- end }}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+{{ include "storage.labels.stakater" . | indent 4 }}
+{{ include "storage.labels.chart" . | indent 4 }}
+  name: {{ .Values.Claim.Name }}
+{{- if .Values.Claim.Annotations }}
+  annotations:
+{{ toYaml .Values.Claim.Annotations | indent 4 }}
+{{- end }}
+spec:
+  accessModes:
+{{ toYaml .Values.Claim.AccessModes | indent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.Capacity }}
+{{- if .Values.StorageClassName }}
+  storageClassName: {{ .Values.StorageClassName }}
+{{- else }}
+  volumeName: {{ .Values.Volume.Name }}
+{{- end }}

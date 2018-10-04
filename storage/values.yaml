@@ -1,0 +1,22 @@
+labels:
+  group: com.stakater.platform
+  provider: stakater
+  version: 1.0.0
+  app: app-name
+
+Capacity: 10Gi
+
+# StorageClassName: ssd
+Volume:
+  Name: storage-volume
+  AccessModes:
+  - ReadWriteOnce
+  NFS:
+    Server: fs-blabla.efs.us-west-2.amazonaws.com
+    Path: /home/storage
+
+Claim:
+  Name: storage-volume-claim
+  Annotations: {}
+  AccessModes:
+  - ReadWriteOnce
