@@ -1,17 +1,33 @@
-{{- if not .Values.StorageClassName }}
+---
+{{- if .Values.Volumes }}
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Values.Volume.Name }}
-  labels:
-{{ include "storage.labels.chart" . | indent 4 }}
-{{ include "storage.labels.stakater" . | indent 4 }}
-spec:
-  capacity:
-    storage: {{ .Values.Capacity }}
-  accessModes:
-{{ toYaml .Values.Volume.AccessModes | indent 4 }}
-  nfs:
-    server: {{ .Values.Volume.NFS.Server }}
-    path: {{ .Values.Volume.NFS.Path }}
+kind: List
+items:
+{{- range .Values.Volumes }}
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: {{ .name }}
+    labels:
+{{ include "storage.labels.chart" $ | indent 6 }}
+{{- if .labels }}
+{{ toYaml .labels | indent 6 }}
+{{- end }}
+{{- if .annotations }}
+    annotations:
+{{ toYaml .annotations | indent 6 }}
+{{- end }}
+  spec:
+    capacity:
+      storage: {{ .storage }}
+    accessModes:
+{{ toYaml .accessModes | indent 6 }}
+    {{- if .claimRef.name  }}
+    claimRef:
+      name: {{ .claimRef.name }}
+    {{- end }}
+    nfs:
+      server: {{ .nfs.server }}
+      path: {{ .nfs.path }}
+{{- end }}
 {{- end }}

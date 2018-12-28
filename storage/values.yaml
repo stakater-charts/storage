@@ -1,22 +1,25 @@
-labels:
-  group: com.stakater.platform
-  provider: stakater
-  version: 1.0.0
-  app: app-name
+Volumes:
+# - name: storage-volume
+#   annotations: {}
+#   labels:
+#     app: appname
+#   accessModes:
+#   - ReadWriteOnce
+#   storage: 8Gi
+#   claimRef:
+#     name: storage-data
+#   nfs:
+#     server: fs-abcdef.efs.eu-west-1.amazonaws.com
+#     path: /home/storage
 
-Capacity: 10Gi
-
-# StorageClassName: ssd
-Volume:
-  Name: storage-volume
-  AccessModes:
-  - ReadWriteOnce
-  NFS:
-    Server: fs-blabla.efs.us-west-2.amazonaws.com
-    Path: /home/storage
-
-Claim:
-  Name: storage-volume-claim
-  Annotations: {}
-  AccessModes:
+Claims:
+- name: storage-volume-claim
+  annotations: {}
+  storage: 8Gi
+  # if you speicify storageClassName then volumeName is ignored and claim is made with storageClass instead of volume
+  storageClassName: "-"
+  # volumeName: storage-volume
+  labels:
+    app: appname
+  accessModes:
   - ReadWriteOnce
