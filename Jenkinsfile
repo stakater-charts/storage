@@ -1,9 +1,8 @@
 #!/usr/bin/groovy
-@Library('github.com/stakater/fabric8-pipeline-library@master')
-
-def dummy = ""
+@Library('github.com/stakater/stakater-pipeline-library@master') _
 
 prepareAndUploadCharts {
     charts = [ "storage" ]
-    isPublic = true
+    publicChartRepositoryURL = 'https://stakater.github.io/stakater-charts'
+    publicChartGitURL = 'git@github.com:stakater/stakater-charts.git'    
 }
