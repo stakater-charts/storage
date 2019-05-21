@@ -25,9 +25,9 @@ items:
         storage: {{ .storage }}
   {{- if .storageClassName }}
   {{- if (eq "-" .storageClassName) }}
-  storageClassName: ""
+    storageClassName: ""
   {{- else }}
-  storageClassName: "{{ .storageClassName }}"
+    storageClassName: "{{ .storageClassName }}"
   {{- end }}
   {{- else }}
     volumeName: {{ .volumeName }}
